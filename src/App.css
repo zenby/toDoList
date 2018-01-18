@@ -1,0 +1,35 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+table { 
+  width: 100%; /* Ширина таблицы */
+  border-spacing: 0; /* Расстояние между ячейками */
+ }
+ tr:nth-child(2n) {
+  background: #f0f0f0; /* Цвет фона */
+ } 
+ tr:nth-child(1) {
+  background: rgb(148, 148, 148); /* Цвет фона */
+  color: #fff; /* Цвет текста */
+ }
+
+* {
+     margin: 5px;
+ }
+.searchInput {
+     max-width: 600px;
+     min-width: 200px;
+     width: 90%;
+
+ }
+
+td {
+     text-align: center;
+ }
+textarea {
+  max-width: 600px;
+     min-width: 200px;
+     width: 90%;
+}
