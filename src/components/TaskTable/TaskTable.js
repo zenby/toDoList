@@ -20,8 +20,7 @@ export class TaskTable extends Component {
             <div>
                 <table>
                     <caption>
-                        Ordered by{this.state.order}
-                        {/* Task list */}
+                        Task list
                     </caption>
                     <tbody>
                         <RowHeadTable setOrder={(order) => this.setState({ order })} />

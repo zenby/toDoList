@@ -10,6 +10,7 @@ export class AddTask extends Component {
             .reduce((hash, item) => ({
                 ...hash, [item.getAttribute('name')]: item.value
             }), {});
+        formData.checked = false;
         this.props.onSubmit(formData);
         ev.target.reset();
     }
