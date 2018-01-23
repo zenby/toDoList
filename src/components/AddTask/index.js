@@ -1,2 +1,1 @@
-import AddTask from './AddTask';
-export default AddTask;
+export * from './AddTask';

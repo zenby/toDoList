@@ -1,21 +1,36 @@
 import React, { Component } from 'react';
-import DateInput from '../DateInput/DateInput';
+import { DateInput } from '../DateInput';
+import PropTypes from 'prop-types';
 
 
-class Filter extends Component {
+export class Filter extends Component {
     render() {
         return (
             <fieldset>
-                <legend>Filter</legend>
-                <input type='checkbox'></input>
+                <legend>{this.props.title}</legend>
+                <input type='checkbox'
+                    checked={this.props.filter.showCompleted}
+                    onChange={(ev) => this.props.onFilterUpdate({ showCompleted: ev.target.checked })}>
+                </input>
                 <span>Show completed </span>
-                <DateInput />
-                <DateInput />
+                <DateInput date={this.props.filter.firstDate}
+                    onChange={(ev) => this.props.onFilterUpdate({ firstDate: ev.target.value })
+                    } />
+                <DateInput date={this.props.filter.lastDate}
+                    onChange={(ev) => this.props.onFilterUpdate({ lastDate: ev.target.value })
+                    } />
                 <br />
-                <input type='text' placeholder='Text search (title+description)' className='searchInput'></input>
+                <input type='text'
+                    placeholder='Text search (title+description)'
+                    className='searchInput'
+                    onChange={(ev) => this.props.onFilterUpdate({ textSearch: ev.target.value.toLowerCase() })}
+                ></input>
             </fieldset>
         );
     }
 }
 
-export default Filter;
+Filter.propTypes = {
+    title: PropTypes.string,
+    onFilterUpdate: PropTypes.func
+}

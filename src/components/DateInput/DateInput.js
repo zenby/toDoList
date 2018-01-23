@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-
-class DateInput extends Component {
+export class DateInput extends Component {
     render() {
-        var date = new Date();
         return (
-            <input type="date" name="calendar"
-                max="2100-06-04" min="2000-05-29" value={this.props.date || (date.getDate() + '-' + date.getMonth() + 1 + '-' + date.getFullYear())} />
+            <input type="date" name="date"
+                max="2100-01-01" min="1970-01-01"
+                defaultValue={this.props.date}
+                onChange={this.props.onChange}
+            />
         );
     }
 }
 
-export default DateInput;
+
