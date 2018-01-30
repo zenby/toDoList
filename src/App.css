@@ -6,17 +6,11 @@ body {
 .class_date{
   width: 180px;
 }
-/* .input{
-  width: 300px;
-  margin: 5px;
-} */
+
  tr:nth-child(2n) {
   background: #e2d9d9; 
  } 
-/* tr:nth-child(1) {
-  background: rgb(148, 148, 148);  Цвет фона 
-  color: #fff; 
- }*/
+
  fieldset{
    border-radius: 5px;
    margin: 10px;
@@ -36,22 +30,7 @@ width: 16px;
 height: 16px;
 margin: 10px;
 }
-/* .searchInput {
-     max-width: 600px;
-     min-width: 200px;
-     width: 90%;
 
- } */
-
-/* tr {
-     text-align: center;
-
- } */
-/* textarea {
-  max-width: 600px;
-     min-width: 200px;
-     width: 90%;
-} */
 
 
 .sortUp {

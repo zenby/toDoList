@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Table, Button } from 'semantic-ui-react';
-import { DateInput } from '../../DateInput';
 import { ModalUpdate } from './ModalUpdate';
+import Input from 'semantic-ui-react/dist/commonjs/elements/Input/Input';
 
 export class RowTable extends Component {
     state = {
@@ -30,7 +30,8 @@ export class RowTable extends Component {
                 <Table.Cell>{task.title || '--title--'}</Table.Cell>
                 <Table.Cell>{task.priority || '--priority--'}</Table.Cell>
                 <Table.Cell>
-                    <DateInput date={task.date} disabled={true} />
+                    <Input type='date' readOnly={true} value={task.date} />
+
                 </Table.Cell>
                 <Table.Cell>
                     <Button icon='remove'

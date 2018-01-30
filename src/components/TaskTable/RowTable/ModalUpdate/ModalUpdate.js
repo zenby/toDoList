@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Button, Header, Modal, Form, Input, TextArea } from 'semantic-ui-react'
 import { DateInput } from '../../../DateInput';
 
-
 export class ModalUpdate extends Component {
     state = {
         date: this.props.task.date
@@ -58,7 +57,6 @@ export class ModalUpdate extends Component {
                     <Button color='green'
                         disabled={isEnableToEdit}
                         onClick={() => {
-                            console.dir(this.getUpdatedTask());
                             this.props.handleClose();
                             this.props.updateTask(task.id, this.getUpdatedTask());
                         }}

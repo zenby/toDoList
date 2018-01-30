@@ -3,8 +3,6 @@ import { DateInput } from '../DateInput';
 import { Form, Header } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
-
-
 export class Filter extends Component {
     render() {
         return (

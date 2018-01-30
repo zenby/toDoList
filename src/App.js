@@ -1,14 +1,13 @@
-import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import './App.css';
+import React, { Component } from 'react';
+import { getTasks, addTask, removeTask, updateTask } from './utils/apiWrapper';
 import { AddTask } from './components/AddTask';
 import { Filter } from './components/Filter';
 import { TaskTable } from './components/TaskTable';
-import { getTasks, addTask, removeTask, updateTask } from './utils/apiWrapper';
-
+import 'semantic-ui-css/semantic.min.css';
+import './App.css';
 
 export class ToDoListWrapper extends Component {
-
 
   state = {
     tasks: [],
@@ -63,14 +62,14 @@ export class ToDoListWrapper extends Component {
       filter: { showCompleted, firstDate, lastDate, textSearch }
   } = this.state;
 
+    let conditions;
     const filteredTasks = tasks.filter((item) => {
-      let conditions = [true];
+      conditions = [true];
       if (!showCompleted) {
         conditions.push(!item.checked);
       }
       if (textSearch) {
-        conditions.push(item.title.toLowerCase().indexOf(textSearch) > -1
-          || item.description.toLowerCase().indexOf(textSearch) > -1);
+        conditions.push(`${item.title}${item.description}`.toLowerCase().indexOf(textSearch) > -1);
       }
       if (firstDate) {
         conditions.push(item.date > firstDate);
@@ -80,8 +79,6 @@ export class ToDoListWrapper extends Component {
       }
       return conditions.every(condition => condition);
     });
-
-
     return <div>
       <AddTask onSubmit={this.addTask} />
       <Filter title={'Filter'}
@@ -93,8 +90,6 @@ export class ToDoListWrapper extends Component {
     </div>;
   }
 }
-
-
 
 ReactDOM.render(<ToDoListWrapper />,
   document.getElementById('root')
