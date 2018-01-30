@@ -1,33 +1,51 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Table, Button } from 'semantic-ui-react';
 import { DateInput } from '../../DateInput';
-import { ModalExample } from './ModalUpdate';
+import { ModalUpdate } from './ModalUpdate';
 
 export class RowTable extends Component {
+    state = {
+        showModal: false
+    }
     changeTaskProp(propName, value) {
         this.props.updateTask(this.props.task.id, {
             [propName]: value
         });
     }
+    handleOpen = () => this.setState({ showModal: true })
+    handleClose = () => this.setState({ showModal: false })
 
     render() {
-        const { task, removeTask } = this.props;
+        const { task, removeTask, updateTask } = this.props;
         return (
-            <tr>
-                <td>
-                    <input type='checkbox' checked={task.checked} onChange={(ev) =>
-                        this.changeTaskProp('checked', ev.target.checked)} />
-                </td>
-                <td>{task.title || '--title--'}</td>
-                <td>{task.priority || '--priority--'}</td>
-                <td><DateInput date={task.date} /></td>
-                <td>
-                    <button onClick={() =>
-                        removeTask(task.id)}>X
-                    </button>
-                </td>
-            </tr>
-        );
+            <Table.Row onDoubleClick={this.handleOpen} >
+                <Table.Cell>
+                    <input type='checkbox'
+                        className="search_checkbox"
+                        checked={task.checked}
+                        onChange={(ev) =>
+                            this.changeTaskProp('checked', ev.target.checked)} />
+                </Table.Cell>
+                <Table.Cell>{task.title || '--title--'}</Table.Cell>
+                <Table.Cell>{task.priority || '--priority--'}</Table.Cell>
+                <Table.Cell>
+                    <DateInput date={task.date} disabled={true} />
+                </Table.Cell>
+                <Table.Cell>
+                    <Button icon='remove'
+                        color='red'
+                        onClick={() => removeTask(task.id)}>
+                    </Button>
+                </Table.Cell>
+                <ModalUpdate task={task}
+                    showModal={this.state.showModal}
+                    handleClose={this.handleClose}
+                    isEnableToEdit={task.checked}
+                    updateTask={updateTask}
+                />
+            </Table.Row>
+        )
     }
 }
 
@@ -36,3 +54,4 @@ RowTable.propTypes = {
     removeTask: PropTypes.func,
     updateTask: PropTypes.func
 };
+

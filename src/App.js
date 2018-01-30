@@ -39,16 +39,16 @@ export class ToDoListWrapper extends Component {
     }))
   }
   updateTask = (id, changes) => {
-    updateTask(id, changes).then((updatedItem) => this.setState({
-      tasks: this.state.tasks.map(item => item.id !== id ? item : {
-        ...item,
-        ...updatedItem
-      })
-    }))
+    updateTask(id, changes).then((updatedItem) => {
+      this.setState({
+        tasks: this.state.tasks.map(item => item.id !== id ? item : {
+          ...item,
+          ...updatedItem
+        })
+      });
+    })
   }
-
   onFilterUpdate = (changes) => {
-    console.dir(this.state);
     this.setState({
       filter: {
         ...this.state.filter,
@@ -56,8 +56,6 @@ export class ToDoListWrapper extends Component {
       }
     });
   }
-
-
   render() {
     const {
     tasks,
@@ -75,21 +73,14 @@ export class ToDoListWrapper extends Component {
           || item.description.toLowerCase().indexOf(textSearch) > -1);
       }
       if (firstDate) {
-
-        conditions.push(item.date.split('-').join() > firstDate.split('-').join());
-
+        conditions.push(item.date > firstDate);
       }
       if (lastDate) {
-        conditions.push(item.date.split('-').join() < lastDate.split('-').join());
+        conditions.push(item.date < lastDate);
       }
-
       return conditions.every(condition => condition);
     });
-    // const filteredTasks = showCompleted ? tasks : tasks.filter((item) => {
-    //   // item.date > firstDate && item.date < lastDate && 
 
-    //   return !item.checked && (~item.description.indexOf(textSearch) || ~item.title.indexOf(textSearch))
-    // });
 
     return <div>
       <AddTask onSubmit={this.addTask} />

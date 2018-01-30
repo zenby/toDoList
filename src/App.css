@@ -1,38 +1,57 @@
 body {
-  margin: 0;
+  width: 800px;
   padding: 0;
   font-family: sans-serif;
 }
-table { 
-  width: 100%; /* Ширина таблицы */
-  border-spacing: 0; /* Расстояние между ячейками */
- }
+.class_date{
+  width: 180px;
+}
+/* .input{
+  width: 300px;
+  margin: 5px;
+} */
  tr:nth-child(2n) {
-  background: #f0f0f0; /* Цвет фона */
+  background: #e2d9d9; 
  } 
- tr:nth-child(1) {
-  background: rgb(148, 148, 148); /* Цвет фона */
-  color: #fff; /* Цвет текста */
+/* tr:nth-child(1) {
+  background: rgb(148, 148, 148);  Цвет фона 
+  color: #fff; 
+ }*/
+ fieldset{
+   border-radius: 5px;
+   margin: 10px;
  }
-
-* {
-     margin: 5px;
+ textarea{
+   width: 100%;
+   resize: none!important;
  }
-.searchInput {
+td{
+  width: 20%;
+}
+.field{
+  margin: 5px;
+}
+.search_checkbox {
+width: 16px;
+height: 16px;
+margin: 10px;
+}
+/* .searchInput {
      max-width: 600px;
      min-width: 200px;
      width: 90%;
 
- }
+ } */
 
-td {
+/* tr {
      text-align: center;
- }
-textarea {
+
+ } */
+/* textarea {
   max-width: 600px;
      min-width: 200px;
      width: 90%;
-}
+} */
 
 
 .sortUp {
@@ -49,7 +68,7 @@ textarea {
 .sortDown 
   {
     padding: 0;
-  margin: 1px;
+    margin: 1px;
     float:right;
     clear:right;
     width: 0;

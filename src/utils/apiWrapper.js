@@ -10,11 +10,11 @@ try {
 export const getId = () => id++;
 
 tasks = Array.isArray(tasks) ? tasks : [
-    { checked: true, title: 'have a nice day', priority: "Normal", date: '2018-01-23' },
-    { checked: false, title: 'hometask', priority: "Low", date: '2018-01-23' },
+    { checked: true, title: 'have a nice day', priority: "Normal", date: '2018-01-21' },
+    { checked: false, title: 'hometask', priority: "Low", date: '2018-01-22' },
     { checked: true, title: 'kitty', priority: "Normal", date: '2018-01-23' },
-    { checked: false, title: 'mom', priority: "High", date: '2018-01-23' },
-    { checked: true, title: 'have a nice day', priority: "High", date: '2018-01-23' },
+    { checked: false, title: 'mom', priority: "High", date: '2018-01-24' },
+    { checked: true, title: 'have a nice day', priority: "High", date: '2018-01-25' },
 ].map(item => ({ ...item, id: getId() }));
 
 const saveTasks = () => localStorage.setItem(LS_KEY, JSON.stringify(tasks));
@@ -28,14 +28,14 @@ export const addTask = data => {
     let task = { ...data, id: getId() };
     tasks.push(task);
     saveTasks();
-    return new Promise(resolve => setTimeout(resolve, 3000, task));
+    return new Promise(resolve => setTimeout(resolve, 200, task));
 }
 
 //remove task from list on the server
 export const removeTask = id => {
     tasks = tasks.filter(item => item.id !== id);
     saveTasks();
-    return new Promise(resolve => setTimeout(resolve, 2000, id));
+    return new Promise(resolve => setTimeout(resolve, 200, id));
 }
 
 //update task on the server

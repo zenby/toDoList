@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
+import { Table } from 'semantic-ui-react';
 export class HeaderElement extends Component {
 
     drawSortButtons() {
@@ -15,9 +15,11 @@ export class HeaderElement extends Component {
 
     render() {
         return (
-            <th>
-                <div>{this.props.setSort && this.drawSortButtons()} </div>
-            </th>
+            <Table.HeaderCell>
+                <div>
+                    {this.props.setSort && this.drawSortButtons()}
+                </div>
+            </Table.HeaderCell>
         );
     }
 }
