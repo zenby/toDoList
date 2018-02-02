@@ -10,7 +10,6 @@ export class AddTask extends Component {
             .reduce((hash, item) => ({
                 ...hash, [item.getAttribute('name')]: item.value
             }), {});
-        console.dir(formData);
         if (formData.date && formData.description && formData.title) {
             formData.checked = false;
             this.props.onSubmit(formData);
@@ -20,7 +19,11 @@ export class AddTask extends Component {
 
     render() {
         let date = new Date();
-        let defaultTaskDate = `${date.getFullYear()}-${(date.getMonth() + 1) < 10 ? ("" + date.getMonth() + 1) : date.getMonth() + 1}-${date.getDate()}`;
+        let defaultTaskDate = `${date.getFullYear()}-${(date.getMonth() + 1) < 10
+            ? ("0" + (date.getMonth() + 1))
+            : date.getMonth() + 1}-${date.getDate() < 10
+                ? "0" + (date.getDate() + 1)
+                : date.getDate()}`;
         return (
             <Form className='toDoListForm' onSubmit={this.onSubmit.bind(this)}>
                 <fieldset >

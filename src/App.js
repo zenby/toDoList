@@ -6,6 +6,7 @@ import { Filter } from './components/Filter';
 import { TaskTable } from './components/TaskTable';
 import 'semantic-ui-css/semantic.min.css';
 import './App.css';
+import { CalendarView } from './components/CalendarView/CalendarView';
 
 export class ToDoListWrapper extends Component {
 
@@ -80,6 +81,7 @@ export class ToDoListWrapper extends Component {
       return conditions.every(condition => condition);
     });
     return <div>
+      <CalendarView />
       <AddTask onSubmit={this.addTask} />
       <Filter title={'Filter'}
         filter={filter}

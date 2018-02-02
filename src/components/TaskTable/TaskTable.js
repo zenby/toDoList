@@ -20,7 +20,7 @@ export class TaskTable extends Component {
         let sortedTasks = sortBy(tasks, this.state.order);
         return (
             <fieldset>
-                <Table textAlign='center'>
+                <Table textAlign='center' className='task_table' celled>
                     <Table.Header>
                         <RowHeadTable setOrder={(order) => this.setState({ order })} />
                     </Table.Header>

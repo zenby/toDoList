@@ -6,8 +6,10 @@ body {
 .class_date{
   width: 180px;
 }
-
- tr:nth-child(2n) {
+/* .calendar_table{
+  width: 600px;
+} */
+.task_table tr:nth-child(2n) {
   background: #e2d9d9; 
  } 
 
@@ -19,7 +21,7 @@ body {
    width: 100%;
    resize: none!important;
  }
-td{
+.task_table td{
   width: 20%;
 }
 .field{
