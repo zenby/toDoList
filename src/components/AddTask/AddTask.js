@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import { DateInput } from '../DateInput';
 import { Form, Header } from 'semantic-ui-react';
-import PropTypes from 'prop-types';
+import { addTask } from '../../utils/apiWrapper'
+
+import { connect } from 'react-redux';
+import { addTask_act_cr } from '../../actions/tasks';
+
+
 
 export class AddTask extends Component {
     onSubmit(ev) {
@@ -12,7 +17,7 @@ export class AddTask extends Component {
             }), {});
         if (formData.date && formData.description && formData.title) {
             formData.checked = false;
-            this.props.onSubmit(formData);
+            addTask(formData).then(newTask => this.props.addTask_action_cr(newTask))
             ev.target.reset();
         }
     }
@@ -50,9 +55,9 @@ export class AddTask extends Component {
         );
     }
 }
-
-AddTask.propTypes = {
-    onSubmit: PropTypes.func
+const mapDispatchToProps = {
+    addTask_act_cr
 }
 
+export default connect(undefined, mapDispatchToProps)(AddTask);
 

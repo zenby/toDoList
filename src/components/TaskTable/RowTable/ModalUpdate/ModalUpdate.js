@@ -1,7 +1,11 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Button, Header, Modal, Form, Input, TextArea } from 'semantic-ui-react'
+import { Button, Header, Modal, Form, Input, TextArea } from 'semantic-ui-react';
 import { DateInput } from '../../../DateInput';
+
+import { updateTask } from '../../../../utils/apiWrapper';
+import { connect } from 'react-redux';
+import { updateTask_act_cr } from '../../../../actions/tasks';
 
 export class ModalUpdate extends Component {
     state = {
@@ -58,7 +62,8 @@ export class ModalUpdate extends Component {
                         disabled={isEnableToEdit}
                         onClick={() => {
                             this.props.handleClose();
-                            this.props.updateTask(task.id, this.getUpdatedTask());
+                            updateTask(task.id, this.getUpdatedTask())
+                                .then(item => this.props.updateTask_act_cr(item));
                         }}
                     >Save
                     </Button>
@@ -67,10 +72,16 @@ export class ModalUpdate extends Component {
         )
     }
 }
+
 ModalUpdate.propTypes = {
     task: PropTypes.object,
     showModal: PropTypes.bool,
     handleClose: PropTypes.func,
-    isEnableToEdit: PropTypes.bool,
-    updateTask: PropTypes.func
+    isEnableToEdit: PropTypes.bool
 }
+
+const mapDispatchToProps = {
+    updateTask_act_cr
+}
+
+export default connect(undefined, mapDispatchToProps)(ModalUpdate);

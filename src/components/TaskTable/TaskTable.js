@@ -1,35 +1,36 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { RowTable } from './RowTable';
+import RowTable from './RowTable';
 import { RowHeadTable } from './RowHeadTable'
 import { Table } from 'semantic-ui-react';
 import sortBy from '../../utils/sortBy';
+import { getTasks } from '../../utils/apiWrapper'
+
+import { connect } from 'react-redux';
+import { loadTasks_act_cr } from '../../actions/tasks';
 
 export class TaskTable extends Component {
     state = {
-        tasks: [],
         order: 'id'
     }
-
+    componentWillMount() {
+        getTasks().then(tasks => this.props.loadTasks_act_cr(tasks))
+    }
     render() {
         const {
-            tasks = [],
-            updateTask,
-            removeTask
+            tasks
         } = this.props;
+
         let sortedTasks = sortBy(tasks, this.state.order);
         return (
             <fieldset>
-                <Table textAlign='center' className='task_table' celled>
+                <Table textAlign='center' className='task_table' >
                     <Table.Header>
                         <RowHeadTable setOrder={(order) => this.setState({ order })} />
                     </Table.Header>
                     <Table.Body>
                         {sortedTasks.map((task) =>
                             <RowTable key={task.id}
-                                task={task}
-                                removeTask={removeTask}
-                                updateTask={updateTask} />)}
+                                task={task} />)}
                     </Table.Body>
                 </Table>
             </fieldset>
@@ -37,9 +38,14 @@ export class TaskTable extends Component {
     }
 }
 
-TaskTable.propTypes = {
-    tasks: PropTypes.array,
-    removeTask: PropTypes.func,
-    updateTask: PropTypes.func
-};
+const mapStateProps = (state) => ({
+    tasks: state.tasks
+})
+
+const mapDispatchToProps = {
+    loadTasks_act_cr
+}
+
+export default connect(mapStateProps, mapDispatchToProps)(TaskTable);
+
 

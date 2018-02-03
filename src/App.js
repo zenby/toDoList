@@ -1,12 +1,16 @@
 import ReactDOM from 'react-dom';
 import React, { Component } from 'react';
-import { getTasks, addTask, removeTask, updateTask } from './utils/apiWrapper';
-import { AddTask } from './components/AddTask';
+import { addTask, removeTask, updateTask } from './utils/apiWrapper';
+import AddTask from './components/AddTask';
 import { Filter } from './components/Filter';
-import { TaskTable } from './components/TaskTable';
+import TaskTable from './components/TaskTable';
+import { CalendarView } from './components/CalendarView/CalendarView';
+
+import { Provider } from 'react-redux';
+import store from './config/store'
+
 import 'semantic-ui-css/semantic.min.css';
 import './App.css';
-import { CalendarView } from './components/CalendarView/CalendarView';
 
 export class ToDoListWrapper extends Component {
 
@@ -18,9 +22,6 @@ export class ToDoListWrapper extends Component {
       lastDate: '',
       textSearch: ""
     }
-  }
-  componentWillMount() {
-    getTasks().then((tasks) => this.setState({ tasks }));
   }
 
   addTask = (taskData) => {
@@ -58,7 +59,7 @@ export class ToDoListWrapper extends Component {
   }
   render() {
     const {
-    tasks,
+      tasks,
       filter,
       filter: { showCompleted, firstDate, lastDate, textSearch }
   } = this.state;
@@ -81,19 +82,22 @@ export class ToDoListWrapper extends Component {
       return conditions.every(condition => condition);
     });
     return <div>
-      <CalendarView />
-      <AddTask onSubmit={this.addTask} />
+      <AddTask />
       <Filter title={'Filter'}
         filter={filter}
         onFilterUpdate={this.onFilterUpdate} />
-      <TaskTable tasks={filteredTasks}
-        removeTask={this.removeTask}
+      <TaskTable
+
         updateTask={this.updateTask} />
-    </div>;
+      <CalendarView />
+    </div>
   }
 }
 
-ReactDOM.render(<ToDoListWrapper />,
+ReactDOM.render(
+  <Provider store={store}>
+    <ToDoListWrapper />
+  </Provider>,
   document.getElementById('root')
 );
 
