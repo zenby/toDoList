@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { Icon, Table } from 'semantic-ui-react'
 const DAYS = ['Mon', 'Tue', 'Wen', 'Thu', 'Fri', 'Sat', 'Sun'];
 
@@ -46,7 +45,10 @@ export class CalendarView extends Component {
         for (let week = 1; week <= maxWeeks; week++) {
             for (let day = 0; day < 7; day++) {
                 isCurrentMonth = currentDate.getMonth() === month - 1 ? false : true;
-                tableRow.push(<Table.Cell disabled={isCurrentMonth} key={currentDate.getDate() + '-' + currentDate.getMonth()}>{currentDate.getDate()}</Table.Cell>);
+                tableRow.push(
+                    <Table.Cell disabled={isCurrentMonth} key={currentDate.getDate() + '-' + currentDate.getMonth()}>
+                        {currentDate.getDate()}
+                    </Table.Cell>);
                 nextDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() + 1);
                 if (nextDay.getDate() > 22 && nextDay.getDay() === 1 && nextDay.getMonth() === month - 1) {
                     maxWeeks++;
@@ -63,16 +65,15 @@ export class CalendarView extends Component {
 
     render() {
         return (
-            <Table textAlign='center' className="calendar_table" celled>
-                {this.renderCalendarHeader()}
-                {this.renderHeader()}
-                {this.renderBody(this.state.date.getFullYear(), this.state.date.getMonth() + 1)}
-            </Table>
+            <fieldset>
+                <Table textAlign='center' className="calendar_table" celled>
+                    {this.renderCalendarHeader()}
+                    {this.renderHeader()}
+                    {this.renderBody(this.state.date.getFullYear(), this.state.date.getMonth() + 1)}
+                </Table>
+            </fieldset>
 
         )
     }
 }
 
-CalendarView.propTypes = {
-
-}
