@@ -1,5 +1,4 @@
 import { ADD_TASK, LOAD_TASKS, REMOVE_TASK, UPDATE_TASK } from '../actions/tasks'
-import Loader from 'semantic-ui-react/dist/commonjs/elements/Loader/Loader';
 const DEFAULT_TASKS = [];
 
 const taskReducer = (state = DEFAULT_TASKS, action) => {

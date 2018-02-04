@@ -17,7 +17,7 @@ export class AddTask extends Component {
             }), {});
         if (formData.date && formData.description && formData.title) {
             formData.checked = false;
-            addTask(formData).then(newTask => this.props.addTask_action_cr(newTask))
+            addTask(formData).then(newTask => this.props.addTask_act_cr(newTask))
             ev.target.reset();
         }
     }
