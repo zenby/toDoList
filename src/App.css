@@ -12,6 +12,9 @@ body {
 .task_table tr:nth-child(2n) {
   background: #e2d9d9; 
  } 
+.checkbox_div{
+  width: auto;
+}
 
  fieldset{
    border-radius: 5px;

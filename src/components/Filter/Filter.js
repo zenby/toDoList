@@ -6,18 +6,24 @@ import { connect } from 'react-redux';
 import { filterUpdate_act_cr } from '../../actions/filter';
 
 export class Filter extends Component {
+
+
     render() {
         const { showCompleted, firstDate, lastDate } = this.props.filter;
         return (
             <div>
                 <fieldset>
                     <Header as='h3' textAlign='center' >Filter</Header>
-                    <Form.Group>
-                        <Checkbox
-                            label='Show completed'
-                            type='checkbox'
-                            checked={showCompleted}
-                            onChange={(ev, data) => this.props.filterUpdate_act_cr({ showCompleted: data.checked })} />
+                    <Form.Group grouped>
+                        <div className='checkbox_div'>
+                            <Checkbox
+                                label='Show completed'
+                                type='checkbox'
+                                checked={showCompleted}
+                                onChange={(e, data) => this.props.filterUpdate_act_cr({ showCompleted: data.checked })} />
+                        </div>
+                    </Form.Group>
+                    <Form.Group width='equal'>
                         <DateInput date={firstDate}
                             disabled={false}
                             onChange={(ev) => this.props.filterUpdate_act_cr({ firstDate: ev.target.value })} />

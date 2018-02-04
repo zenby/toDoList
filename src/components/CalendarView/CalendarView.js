@@ -46,7 +46,7 @@ export class CalendarView extends Component {
             for (let day = 0; day < 7; day++) {
                 isCurrentMonth = currentDate.getMonth() === month - 1 ? false : true;
                 tableRow.push(
-                    <Table.Cell disabled={isCurrentMonth} key={currentDate.getDate() + '-' + currentDate.getMonth()}>
+                    <Table.Cell disabled={isCurrentMonth} key={currentDate.getDate() + 100 * currentDate.getMonth()}>
                         {currentDate.getDate()}
                     </Table.Cell>);
                 nextDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() + 1);
