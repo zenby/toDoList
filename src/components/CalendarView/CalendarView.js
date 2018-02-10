@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Icon, Table } from 'semantic-ui-react'
+import CalendarCell from './CalendarCell';
+import { Icon, Table } from 'semantic-ui-react';
 const DAYS = ['Mon', 'Tue', 'Wen', 'Thu', 'Fri', 'Sat', 'Sun'];
 
 export class CalendarView extends Component {
@@ -14,19 +15,22 @@ export class CalendarView extends Component {
             </Table.Row>
         </Table.Header>
     }
+    changeMonth(value) {
+        const { date } = this.state;
+        this.setState({ date: new Date(date.getFullYear(), date.getMonth() + value, date.getDate()) })
+    }
+
     renderCalendarHeader() {
         const { date } = this.state;
         return <Table.Header>
             <Table.Row>
-                <Table.HeaderCell onClick={() =>
-                    this.setState({ date: new Date(date.getFullYear(), date.getMonth() - 1, 1) })}>
+                <Table.HeaderCell onClick={() => this.changeMonth(-1)}>
                     <Icon name='chevron left' />
                 </Table.HeaderCell>
                 <Table.HeaderCell colSpan='5'>
                     {date.toLocaleString('en-US', { month: 'long', year: 'numeric' })}
                 </Table.HeaderCell>
-                <Table.HeaderCell onClick={() =>
-                    this.setState({ date: new Date(date.getFullYear(), date.getMonth() + 1, 1) })}>
+                <Table.HeaderCell onClick={() => this.changeMonth(1)}>
                     <Icon name='chevron right' />
                 </Table.HeaderCell>
             </Table.Row>
@@ -34,29 +38,37 @@ export class CalendarView extends Component {
     }
 
     renderBody(year, month) {
-        var currentDate = new Date(year, month - 1, 1);
-        var diff = 2 - currentDate.getDay();
-        diff === 2 ? currentDate.setDate(-5) : currentDate.setDate(diff);
+        const { date } = this.state;
+        var now = new Date();
+        var isCurrentMonthAndYear = now.getFullYear() === date.getFullYear() && now.getMonth() === date.getMonth() ? true : false;
+
+        let calendarDate = new Date(year, month - 1, 1);
+        var diff = 2 - calendarDate.getDay();
+        diff === 2 ? calendarDate.setDate(-5) : calendarDate.setDate(diff);
         var tableBody = [];
-        var tableRow = [];
-        var isCurrentMonth;
+        var tableRow;
+        var isChosenMonth;
         var nextDay;
         var maxWeeks = 4;
         for (let week = 1; week <= maxWeeks; week++) {
+            tableRow = [];
             for (let day = 0; day < 7; day++) {
-                isCurrentMonth = currentDate.getMonth() === month - 1 ? false : true;
+                isChosenMonth = calendarDate.getMonth() === month - 1 ? false : true;
                 tableRow.push(
-                    <Table.Cell disabled={isCurrentMonth} key={currentDate.getDate() + 100 * currentDate.getMonth()}>
-                        {currentDate.getDate()}
-                    </Table.Cell>);
-                nextDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() + 1);
+                    <CalendarCell
+                        currentDate={date}
+                        calendarDate={calendarDate.getDate()}
+                        isCurrentMonthAndYear={isCurrentMonthAndYear}
+                        disabled={isChosenMonth}
+                        key={calendarDate.getDate() + 100 * calendarDate.getMonth()}
+                    />);
+                nextDay = new Date(calendarDate.getFullYear(), calendarDate.getMonth(), calendarDate.getDate() + 1);
                 if (nextDay.getDate() > 22 && nextDay.getDay() === 1 && nextDay.getMonth() === month - 1) {
                     maxWeeks++;
                 }
-                currentDate.setDate(currentDate.getDate() + 1);
+                calendarDate.setDate(calendarDate.getDate() + 1);
             }
             tableBody.push(<Table.Row key={week}>{tableRow}</Table.Row>)
-            tableRow = [];
         }
         return <Table.Body>
             {tableBody}
