@@ -6,10 +6,11 @@ export default (tasks, filter) => {
             conditions.push(!item.checked);
         }
         if (filter.textSearch) {
-            conditions.push(`${item.title} ${item.description}`.toLowerCase().indexOf(filter.textSearch) > -1);
+            conditions.push(`${item.title}   ${item.description}`.toLowerCase().indexOf(filter.textSearch) > -1);
         }
         if (filter.firstDate) {
             conditions.push(item.date >= filter.firstDate);
+            console.log(item.date + '-----' + filter.firstDate)
         }
         if (filter.lastDate) {
             conditions.push(item.date <= filter.lastDate);

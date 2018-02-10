@@ -14,7 +14,6 @@ export class RowTable extends Component {
     removeTaskFromList = (id) => {
         removeTask(id).then(itemId => this.props.removeTask_act_cr(itemId));
     }
-
     changeTaskProp(propName, value) {
         updateTask(this.props.task.id, {
             [propName]: value
@@ -22,7 +21,6 @@ export class RowTable extends Component {
     }
     handleOpen = () => this.setState({ showModal: true })
     handleClose = () => this.setState({ showModal: false })
-
     render() {
         const { task } = this.props;
         return (

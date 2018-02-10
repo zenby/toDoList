@@ -12,9 +12,11 @@ import store from './config/store'
 import 'semantic-ui-css/semantic.min.css';
 import './App.css';
 import { AppMenu } from './components/Menu';
+import { About } from './components/About';
 
 export class ToDoListWrapper extends Component {
-  state = { activeItem: 'Calendar' }
+  state = { activeItem: 'Tasks' }
+
   handleItemClick = (ev, { name }) => {
     this.setState({ activeItem: name })
   }
@@ -33,20 +35,21 @@ export class ToDoListWrapper extends Component {
     },
     {
       menuPoint: 'About',
-      content: <div key={'div_about'}>
-        <h3> Hello from Evgeniy</h3>
-      </div>
+      content: <About key={'About'} />
     }
   ]
 
   render() {
 
     return <div>
-      <AppMenu activeItem={this.state.activeItem} handleItemClick={this.handleItemClick} />
-      {/* <LoginWindow /> */}
+      <AppMenu
+        activeItem={this.state.activeItem}
+        handleItemClick={this.handleItemClick}
+      // loginedUser ={this.loginedUser}
+      />
+      <LoginWindow />
       {(this.menuItems.filter(item => item.menuPoint === this.state.activeItem))
         .map(item => item.content)}
-
     </div>
   }
 }

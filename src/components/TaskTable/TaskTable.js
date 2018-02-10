@@ -22,7 +22,7 @@ export class TaskTable extends Component {
         let sortedTasks = sortBy(filterTasks(this.props.tasks, this.props.filter), this.state.order);
         return (
             <fieldset>
-                <Table textAlign='center' className='task_table' >
+                <Table textAlign='center' className='task_table'  >
                     <Table.Header>
                         <RowHeadTable setOrder={(order) => this.setState({ order })} />
                     </Table.Header>

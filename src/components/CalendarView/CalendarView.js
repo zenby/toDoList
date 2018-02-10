@@ -38,10 +38,6 @@ export class CalendarView extends Component {
     }
 
     renderBody(year, month) {
-        const { date } = this.state;
-        var now = new Date();
-        var isCurrentMonthAndYear = now.getFullYear() === date.getFullYear() && now.getMonth() === date.getMonth() ? true : false;
-
         let calendarDate = new Date(year, month - 1, 1);
         var diff = 2 - calendarDate.getDay();
         diff === 2 ? calendarDate.setDate(-5) : calendarDate.setDate(diff);
@@ -54,11 +50,10 @@ export class CalendarView extends Component {
             tableRow = [];
             for (let day = 0; day < 7; day++) {
                 isChosenMonth = calendarDate.getMonth() === month - 1 ? false : true;
+                //console.log(calendarDate);
                 tableRow.push(
                     <CalendarCell
-                        currentDate={date}
-                        calendarDate={calendarDate.getDate()}
-                        isCurrentMonthAndYear={isCurrentMonthAndYear}
+                        calendarDate={new Date(calendarDate.getFullYear(), calendarDate.getMonth(), calendarDate.getDate())}
                         disabled={isChosenMonth}
                         key={calendarDate.getDate() + 100 * calendarDate.getMonth()}
                     />);
@@ -78,7 +73,7 @@ export class CalendarView extends Component {
     render() {
         return (
             <fieldset>
-                <Table textAlign='center' className="calendar_table" celled>
+                <Table textAlign='center' className="calendar_table" celled fixed>
                     {this.renderCalendarHeader()}
                     {this.renderHeader()}
                     {this.renderBody(this.state.date.getFullYear(), this.state.date.getMonth() + 1)}

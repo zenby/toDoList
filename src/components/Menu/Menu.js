@@ -20,7 +20,8 @@ export class AppMenu extends Component {
                 onClick={this.handleItemClick} />
 
             <Menu.Menu position='right'>
-                <Menu.Item name='logout' active={activeItem === 'logout'}
+                <Menu.Item name='logout'
+                    active={activeItem === '1'}
                     onClick={this.handleItemClick} />
             </Menu.Menu>
         </Menu>

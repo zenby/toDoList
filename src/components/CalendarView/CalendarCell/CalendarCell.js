@@ -1,18 +1,39 @@
 import React, { Component } from 'react';
-import { Table } from 'semantic-ui-react';
-
+import { Table, List } from 'semantic-ui-react';
+import TaskCell from './TaskCell'
 import { connect } from 'react-redux';
+
+
 export class CalendarCell extends Component {
 
+    renderTasks(tasks) {
+        var array = tasks.map(item => {
+            return <TaskCell task={item} key={item.description} />
+        })
+        return array;
+
+    }
     render() {
-        //console.dir(this.props.tasks);
-        const { isCurrentMonthAndYear, disabled, currentDate, calendarDate } = this.props;
+        const { disabled, calendarDate } = this.props;
+        let searchDate = calendarDate.toLocaleDateString().split('.').reverse().join('-');
+        let today = new Date();
+        let currentTasks = this.props.tasks.filter(item => {
+            if (item.date === searchDate && !disabled) {
+                return true
+            }
+            else return false;
+        })
+
         return <Table.Cell disabled={disabled}
-            className={isCurrentMonthAndYear
+            className={today.getMonth() === calendarDate.getMonth()
+                && today.getDate() === calendarDate.getDate()
                 && !disabled
-                && currentDate.getDate() === calendarDate
                 ? 'td-current-date' : ''}
-        >{calendarDate}
+        >{calendarDate.getDate()}
+            <List>
+                {this.renderTasks(currentTasks)}
+            </List>
+
         </Table.Cell>
     }
 }

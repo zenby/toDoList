@@ -12,7 +12,9 @@ body {
 .checkbox_div{
   width: auto;
 }
-
+i.remove_icon.icon:hover{
+  opacity: 0.5!important;
+}
  fieldset{
    border-radius: 5px;
    margin: 10px;
