@@ -37,8 +37,15 @@ margin: 10px;
 .td-current-date{
   background-color:  #e2d9d9
 }
-
-
+.login_window{
+  width: 30%;
+  margin: 10% 30%;
+}
+.greeting_span{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .sortUp {
   padding: 0;
   margin: 1px;
