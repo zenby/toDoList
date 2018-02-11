@@ -12,8 +12,18 @@ body {
 .checkbox_div{
   width: auto;
 }
+i.remove_icon.icon{
+  position: absolute;
+  bottom: 3px;
+  right: -5px;
+}
 i.remove_icon.icon:hover{
   opacity: 0.5!important;
+}
+td .ui.checkbox  {
+  position: absolute!important;
+  bottom: 5px!important;
+  left: 5px!important;
 }
  fieldset{
    border-radius: 5px;
@@ -28,6 +38,10 @@ i.remove_icon.icon:hover{
 }
 .field{
   margin: 5px;
+}
+td .list_item{
+  display: block!important;
+  position: relative;
 }
 .search_checkbox {
 width: 16px;

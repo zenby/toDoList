@@ -50,7 +50,6 @@ export class CalendarView extends Component {
             tableRow = [];
             for (let day = 0; day < 7; day++) {
                 isChosenMonth = calendarDate.getMonth() === month - 1 ? false : true;
-                //console.log(calendarDate);
                 tableRow.push(
                     <CalendarCell
                         calendarDate={new Date(calendarDate.getFullYear(), calendarDate.getMonth(), calendarDate.getDate())}

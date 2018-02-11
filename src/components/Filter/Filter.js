@@ -6,22 +6,20 @@ import { connect } from 'react-redux';
 import { filterUpdate_act_cr } from '../../actions/filter';
 
 export class Filter extends Component {
-
-
     render() {
-        const { showCompleted, firstDate, lastDate } = this.props.filter;
+        const { showCompleted, firstDate, lastDate, textSearch } = this.props.filter;
         return (
             <div>
                 <fieldset>
                     <Header as='h3' textAlign='center' >Filter</Header>
                     <Form.Group grouped>
-                        <div className='checkbox_div'>
-                            <Checkbox
-                                label='Show completed'
-                                type='checkbox'
-                                checked={showCompleted}
-                                onChange={(e, data) => this.props.filterUpdate_act_cr({ showCompleted: data.checked })} />
-                        </div>
+
+                        <Checkbox
+                            label='Show completed'
+                            type='checkbox'
+                            checked={showCompleted}
+                            onChange={(e, data) => this.props.filterUpdate_act_cr({ showCompleted: data.checked })} />
+
                     </Form.Group>
                     <Form.Group width='equal'>
                         <DateInput date={firstDate}
@@ -35,6 +33,7 @@ export class Filter extends Component {
                             placeholder='Search...'
                             icon='search'
                             iconPosition='left'
+                            defaultValue={textSearch}
                             onChange={(ev) => this.props.filterUpdate_act_cr({ textSearch: ev.target.value.toLowerCase() })}
                         ></Form.Input>
                     </Form.Group>

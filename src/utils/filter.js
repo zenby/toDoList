@@ -10,7 +10,6 @@ export default (tasks, filter) => {
         }
         if (filter.firstDate) {
             conditions.push(item.date >= filter.firstDate);
-            console.log(item.date + '-----' + filter.firstDate)
         }
         if (filter.lastDate) {
             conditions.push(item.date <= filter.lastDate);

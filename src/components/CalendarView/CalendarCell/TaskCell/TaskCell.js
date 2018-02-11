@@ -21,9 +21,11 @@ export class TaskCell extends Component {
     handleClose = () => this.setState({ showModal: false })
     render() {
         return (
-            <List.Item onDoubleClick={this.handleOpen}>
-                <Label>
+            <List.Item 
+            onDoubleClick={this.handleOpen}>
+                <Label className='list_item'>
                     <Checkbox
+                    className='calendar_checkbox_item'
                         defaultChecked={this.props.task.checked}
                         onChange={(e, data) => this.changeTaskComplete(data.checked)}
                     />

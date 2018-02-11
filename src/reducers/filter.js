@@ -1,4 +1,4 @@
-import { FILTER_UPDATE } from '../actions/filter';
+import { HASH_CHANGED, FILTER_UPDATE } from '../actions/filter';
 const DEFAULT_FILTER = {
     showCompleted: true,
     firstDate: '',
@@ -8,6 +8,8 @@ const DEFAULT_FILTER = {
 
 const filterReducer = (state = DEFAULT_FILTER, action) => {
     switch (action.type) {
+        case HASH_CHANGED:
+            return { ...action.payload };
         case FILTER_UPDATE:
             return { ...state, ...action.payload };
         default:
