@@ -9,6 +9,5 @@ export const getFilterFromHash = () => {
         return filter = { ...filter, ...item }
     })
     filter.showCompleted = filter.showCompleted === 'true';
-    //console.log(filter);
     return filter;
 }

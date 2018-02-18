@@ -8,58 +8,58 @@ import { LoginWindow } from './Login'
 
 import { AppMenu } from './Menu';
 import { About } from './About';
-
-export const MENUNAMES = ['Calendar', 'Tasks', 'About', 'Login', 'Kisa'];
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+export const MENUNAMES = ['Calendar', 'Tasks', 'About', 'Login'];
 
 export class ToDoListWrapper extends Component {
-    state = { activeItem: MENUNAMES[3], loginName: '' }
-    grantAccess = (name) => {
-        this.setState({ loginName: name });
+    state = {
+        loginName: '',
+        isAuthenticated: false
+    }
+
+    authenticate(name) {
         MENUNAMES[3] = 'Logout';
-    };
-    removeAccess = () => {
+        this.setState({ isAuthenticated: true, loginName: name })
+    }
+    signout() {
         MENUNAMES[3] = 'Login';
-        this.setState({ activeItem: MENUNAMES[3], loginName: '' })
+        this.setState({ isAuthenticated: false, loginName: '' })
     }
-    handleItemClick = (ev, { name }) => {
-        this.setState({ activeItem: name })
-    }
-    menuItems = [
-        {
-            menuPoint: MENUNAMES[0],
-            content: <CalendarView key={MENUNAMES[0]} />
-        },
-        {
-            menuPoint: MENUNAMES[1],
-            content: <div key={'div_tasks'}>
-                <AddTask />
-                <Filter />
-                <TaskTable />
-            </div>
-        },
-        {
-            menuPoint: MENUNAMES[2],
-            content: <About key={MENUNAMES[2]} />
-        },
-        {
-            menuPoint: MENUNAMES[3],
-            content: <LoginWindow key={MENUNAMES[3]}
-                handleItemClick={this.handleItemClick}
-                grantAccess={this.grantAccess} />
-        }
-    ]
-    debugger;
     render() {
-        return <div>
-            <AppMenu
-                activeItem={this.state.activeItem}
-                handleItemClick={this.handleItemClick}
-                disabled={!this.state.loginName}
-                removeAccess={this.removeAccess}
-                loginName={this.state.loginName}
-            />
-            {(this.menuItems.filter(item => item.menuPoint === this.state.activeItem))
-                .map(item => item.content)}
-        </div>
+        this.authenticate = this.authenticate.bind(this);
+        this.signout = this.signout.bind(this);
+        return <BrowserRouter>
+            <div>
+                <AppMenu
+                    disabled={!this.state.loginName}
+                    loginName={this.state.loginName}
+                    isAuthenticated={this.state.isAuthenticated}
+                    signout={this.signout}
+                />
+                <Switch>
+                    <Route exact path='/calendar' render={() => {
+                        return this.state.isAuthenticated
+                            ? <CalendarView />
+                            : <Redirect to={`/`} />
+                    }} />
+                    <Route exact path='/tasks' render={() => {
+                        return this.state.isAuthenticated
+                            ? (<div>
+                                <AddTask />
+                                <Filter />
+                                <TaskTable /></div>)
+                            : <Redirect to={`/`} />
+                    }} />
+                    <Route exact path='/about' render={() => {
+                        return <About />
+                    }} />
+                    <Route exact path='/' render={() => {
+                        return <LoginWindow isAuthenticated={this.state.isAuthenticated}
+                            authenticate={this.authenticate}
+                        />
+                    }} />
+                </Switch>
+            </div>
+        </BrowserRouter>
     }
 }
