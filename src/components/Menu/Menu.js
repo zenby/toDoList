@@ -13,37 +13,37 @@ export class AppMenu extends Component {
         const { activeItem } = this.state;
         const { disabled, loginName } = this.props
         return (<Menu pointing>
-            <Link to='/calendar'>
+            <Link to='/calendar'
+                onClick={() => this.handleItemClick(undefined, { name: MENUNAMES[0] })}>
                 <Menu.Item name={MENUNAMES[0]}
                     active={activeItem === MENUNAMES[0]}
                     disabled={disabled}
-                    onClick={this.handleItemClick}
                 />
             </Link>
-            <Link to='/tasks'>
+            <Link to='/tasks'
+                onClick={() => this.handleItemClick(undefined, { name: MENUNAMES[1] })}>
                 <Menu.Item name={MENUNAMES[1]}
                     active={activeItem === MENUNAMES[1]}
                     disabled={disabled}
-                    onClick={this.handleItemClick}
                 />
             </Link>
-            <Link to='/about'>
+            <Link to='/about'
+                onClick={() => this.handleItemClick(undefined, { name: MENUNAMES[2] })}>
                 <Menu.Item name={MENUNAMES[2]}
                     active={activeItem === MENUNAMES[2]}
-                    onClick={this.handleItemClick}
                 />
             </Link>
             <span className='greeting_span'>
-                {loginName ? 'Hello, ' + loginName : ''}
+                {loginName ? '  Hello, ' + loginName : ''}
             </span>
             <Menu.Menu position='right'>
-                <Link to='/'>
+                <Link to='/' onClick={() => {
+                    this.handleItemClick(undefined, { name: 'Login' })
+                    this.props.signout()
+                }}>
                     <Menu.Item name={MENUNAMES[3]}
                         active={activeItem === MENUNAMES[3]}
-                        onClick={() => {
-                            this.handleItemClick(undefined, { name: 'Login' })
-                            this.props.signout()
-                        }}
+
                     />
                 </Link>
             </Menu.Menu>
