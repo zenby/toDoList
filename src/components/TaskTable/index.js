@@ -1,2 +1,1 @@
-import TaskTable from './TaskTable';
-export default TaskTable;
+export * from './TaskTable';

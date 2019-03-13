@@ -1,2 +1,1 @@
-import RowTable from './RowTable';
-export default RowTable;
+export * from './RowTable';
