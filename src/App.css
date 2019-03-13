@@ -1,16 +1,30 @@
 body {
-  width: 800px;
+  /* width: 800px; */
   padding: 0;
   font-family: sans-serif;
 }
 .class_date{
   width: 180px;
 }
-
- tr:nth-child(2n) {
+.task_table tr:nth-child(2n) {
   background: #e2d9d9; 
  } 
-
+.checkbox_div{
+  width: auto;
+}
+i.remove_icon.icon{
+  position: absolute;
+  bottom: 3px;
+  right: -5px;
+}
+i.remove_icon.icon:hover{
+  opacity: 0.5!important;
+}
+td .ui.checkbox  {
+  position: absolute!important;
+  bottom: 5px!important;
+  left: 5px!important;
+}
  fieldset{
    border-radius: 5px;
    margin: 10px;
@@ -19,20 +33,33 @@ body {
    width: 100%;
    resize: none!important;
  }
-td{
+.task_table td{
   width: 20%;
 }
 .field{
   margin: 5px;
+}
+td .list_item{
+  display: block!important;
+  position: relative;
 }
 .search_checkbox {
 width: 16px;
 height: 16px;
 margin: 10px;
 }
-
-
-
+.td-current-date{
+  background-color:  #e2d9d9
+}
+.login_window{
+  width: 30%;
+  margin: 10% 30%;
+}
+.greeting_span{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .sortUp {
   padding: 0;
   margin: 1px;

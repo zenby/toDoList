@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import { DateInput } from '../DateInput';
 import { Form, Header } from 'semantic-ui-react';
-import PropTypes from 'prop-types';
+import { addTask } from '../../utils/apiWrapper'
+
+import { connect } from 'react-redux';
+import { addTask_act_cr } from '../../actions/tasks';
+
+
 
 export class AddTask extends Component {
     onSubmit(ev) {
@@ -10,17 +15,20 @@ export class AddTask extends Component {
             .reduce((hash, item) => ({
                 ...hash, [item.getAttribute('name')]: item.value
             }), {});
-        console.dir(formData);
         if (formData.date && formData.description && formData.title) {
             formData.checked = false;
-            this.props.onSubmit(formData);
+            addTask(formData).then(newTask => this.props.addTask_act_cr(newTask))
             ev.target.reset();
         }
     }
 
     render() {
         let date = new Date();
-        let defaultTaskDate = `${date.getFullYear()}-${(date.getMonth() + 1) < 10 ? ("" + date.getMonth() + 1) : date.getMonth() + 1}-${date.getDate()}`;
+        let defaultTaskDate = `${date.getFullYear()}-${(date.getMonth() + 1) < 10
+            ? ("0" + (date.getMonth() + 1))
+            : date.getMonth() + 1}-${date.getDate() < 10
+                ? "0" + (date.getDate() + 1)
+                : date.getDate()}`;
         return (
             <Form className='toDoListForm' onSubmit={this.onSubmit.bind(this)}>
                 <fieldset >
@@ -47,9 +55,9 @@ export class AddTask extends Component {
         );
     }
 }
-
-AddTask.propTypes = {
-    onSubmit: PropTypes.func
+const mapDispatchToProps = {
+    addTask_act_cr
 }
 
+export default connect(undefined, mapDispatchToProps)(AddTask);
 

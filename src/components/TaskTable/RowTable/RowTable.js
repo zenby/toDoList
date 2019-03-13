@@ -1,23 +1,28 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Table, Button } from 'semantic-ui-react';
-import { ModalUpdate } from './ModalUpdate';
-import Input from 'semantic-ui-react/dist/commonjs/elements/Input/Input';
+import { Table, Button, Input } from 'semantic-ui-react';
+import ModalUpdate from './ModalUpdate';
+import { removeTask, updateTask } from '../../../utils/apiWrapper';
+
+import { connect } from 'react-redux';
+import { removeTask_act_cr, updateTask_act_cr } from '../../../actions/tasks';
 
 export class RowTable extends Component {
     state = {
         showModal: false
     }
+    removeTaskFromList = (id) => {
+        removeTask(id).then(itemId => this.props.removeTask_act_cr(itemId));
+    }
     changeTaskProp(propName, value) {
-        this.props.updateTask(this.props.task.id, {
+        updateTask(this.props.task.id, {
             [propName]: value
-        });
+        }).then(task => this.props.updateTask_act_cr(task));
     }
     handleOpen = () => this.setState({ showModal: true })
     handleClose = () => this.setState({ showModal: false })
-
     render() {
-        const { task, removeTask, updateTask } = this.props;
+        const { task } = this.props;
         return (
             <Table.Row onDoubleClick={this.handleOpen} >
                 <Table.Cell>
@@ -31,19 +36,17 @@ export class RowTable extends Component {
                 <Table.Cell>{task.priority || '--priority--'}</Table.Cell>
                 <Table.Cell>
                     <Input type='date' readOnly={true} value={task.date} />
-
                 </Table.Cell>
                 <Table.Cell>
                     <Button icon='remove'
                         color='red'
-                        onClick={() => removeTask(task.id)}>
+                        onClick={() => this.removeTaskFromList(task.id)}>
                     </Button>
                 </Table.Cell>
                 <ModalUpdate task={task}
                     showModal={this.state.showModal}
                     handleClose={this.handleClose}
                     isEnableToEdit={task.checked}
-                    updateTask={updateTask}
                 />
             </Table.Row>
         )
@@ -51,8 +54,11 @@ export class RowTable extends Component {
 }
 
 RowTable.propTypes = {
-    task: PropTypes.object,
-    removeTask: PropTypes.func,
-    updateTask: PropTypes.func
+    task: PropTypes.object
 };
 
+const mapDispatchToProps = {
+    removeTask_act_cr, updateTask_act_cr
+}
+
+export default connect(undefined, mapDispatchToProps)(RowTable);
