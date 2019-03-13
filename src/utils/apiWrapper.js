@@ -49,3 +49,12 @@ export const updateTask = (id, changes) => {
         ...tasks.find(item => item.id === id)
     }));
 }
+export const loginUser = (login, password) => {
+    return new Promise((resolve, reject) => {
+        if (!isNaN(+login) && !isNaN(+password) && login.length + 1 === password.length) {
+            setTimeout(resolve, 300, 'password accepted');
+        } else {
+            setTimeout(reject, 1000, 'incorect login or password');
+        }
+    })
+}
